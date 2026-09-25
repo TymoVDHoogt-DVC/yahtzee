@@ -287,6 +287,9 @@
         <mxCell id="auFH-f1mWZEpOr2G2FE3-63" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Naar stap 13" vertex="1">
           <mxGeometry height="30" width="60" x="680" y="320" as="geometry" />
         </mxCell>
+        <mxCell id="auFH-f1mWZEpOr2G2FE3-64" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Kies welke stenen je niet wil gooien" vertex="1">
+          <mxGeometry height="30" width="60" x="440" y="950" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

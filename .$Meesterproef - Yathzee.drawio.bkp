@@ -79,7 +79,7 @@
         <mxCell id="auFH-f1mWZEpOr2G2FE3-24" edge="1" parent="1" source="auFH-f1mWZEpOr2G2FE3-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="auFH-f1mWZEpOr2G2FE3-23" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="auFH-f1mWZEpOr2G2FE3-12" parent="1" style="whiteSpace=wrap;html=1;dashed=0;" value="Kies een catagorie" vertex="1">
+        <mxCell id="auFH-f1mWZEpOr2G2FE3-12" parent="1" style="whiteSpace=wrap;html=1;dashed=0;" value="Kies een categorie" vertex="1">
           <mxGeometry height="60" width="120" x="310" y="1110" as="geometry" />
         </mxCell>
         <mxCell id="auFH-f1mWZEpOr2G2FE3-14" edge="1" parent="1" source="auFH-f1mWZEpOr2G2FE3-3" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="auFH-f1mWZEpOr2G2FE3-12" value="">
@@ -286,6 +286,9 @@
         </mxCell>
         <mxCell id="auFH-f1mWZEpOr2G2FE3-63" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Naar stap 13" vertex="1">
           <mxGeometry height="30" width="60" x="680" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="auFH-f1mWZEpOr2G2FE3-64" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Text" vertex="1">
+          <mxGeometry height="30" width="60" x="440" y="950" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
