@@ -1,0 +1,54 @@
+START
+
+```
+# Functie 1
+PRINT "Welkom bij Yahtzee"
+
+SPEL STARTEN
+# Functie 2
+SCOREKAART RESETTEN
+
+# Functie 3
+ALS alle 13 categorieën zijn ingevuld DAN
+    BEREKEN de totaalscore
+    TOON de eindscore
+    STOP
+# Functie 4
+ANDERS
+
+    GOOI 5 dobbelstenen
+# Functie 5
+ALS dit de derde worp is DAN
+    GEBRUIK de huidige 5 dobbelstenen
+    KIES een categorie
+
+ANDERS
+    KIES:
+        OPNIEUW GOOIEN
+        OF
+        CATEGORIE KIEZEN
+
+    ALS opnieuw gooien DAN
+        KIES welke dobbelstenen je wilt houden
+        GOOI de overige dobbelstenen opnieuw
+    ANDERS
+        KIES een categorie
+    EINDE ALS
+
+EINDE ALS
+```
+
+# Functie 6
+    ALS de gekozen categorie nog leeg is DAN
+        BEREKEN de score van de gekozen categorie
+        VUL de score in op de scorekaart
+    ANDERS
+        KIES een andere categorie
+    EINDE ALS
+
+    GA TERUG NAAR controle of alle 13 categorieën zijn ingevuld
+
+EINDE ALS
+```
+
+EINDE
