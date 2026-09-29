@@ -11,11 +11,19 @@ if scorekaart_check == True:
 else:
     print("Bereken totaalscore")
 
-worp = dobbelstenen_gooien()
+worp = 1
 
-print(worp)
+dobbelstenen = dobbelstenen_gooien()
+print(dobbelstenen)
 
-antwoord = nog_een_keer()
-print(antwoord)
+antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
 
-dobbelstenen = nog_een_keer()
+while antwoord == "OPNIEUW":
+    print(dobbelstenen)
+    antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
+
+if antwoord == "CATKIEZEN":
+    categorie_kiezen(antwoord, dobbelstenen)
+
+# print(antwoord)
+# print(worp)

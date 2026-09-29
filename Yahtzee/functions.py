@@ -50,10 +50,17 @@ def dobbelstenen_gooien():
     print(f" Totale waarde van deze beurt: {totale_score}")
     return dobbelstenen
 
-def nog_een_keer(dobbelstenen):
+def nog_een_keer(worp, dobbelstenen):
     behouden_dobbels = []
+
+    if worp == 3:
+        print("Je moet nu een categorie kiezen.")
+        behouden_dobbels = list(dobbelstenen.keys())
+        return "CATKIEZEN", behouden_dobbels, worp
+
     opnieuw_catkiezen = input("Wil je opnieuw gooien of een categorie kiezen? (OPNIEUW/CATKIEZEN) ").upper()
     if opnieuw_catkiezen == "OPNIEUW":
+        worp += 1
         aantal_keuzes = 0
         while aantal_keuzes < 5:
             dobbel_houden = input("Welke dobbelsteen/stenen wilt u houden? (1-5/GEEN) ").upper()
@@ -95,7 +102,130 @@ def nog_een_keer(dobbelstenen):
             if dobbelsteen in behouden_dobbels:
                 print
             else:
-                print
+                print()
+                dobbelstenen[dobbelsteen] = random.randint(1, 6)
     elif opnieuw_catkiezen == "CATKIEZEN":
         print("Categorie kiezen")
-    return opnieuw_catkiezen, behouden_dobbels
+    return opnieuw_catkiezen, behouden_dobbels, worp
+
+def categorie_kiezen(antwoord, dobbelstenen):
+    if antwoord == "CATKIEZEN":
+        dobbelsteen_waardes = list(dobbelstenen.values())
+        print(dobbelsteen_waardes)
+        frequentie = {
+            "Ones": 0,
+            "Twos": 0,
+            "Threes": 0,
+            "Fours": 0,
+            "Fives": 0,
+            "Sixes": 0
+        }
+        #               Aces               #
+        aces = dobbelsteen_waardes.count(1)
+        if aces >= 1:
+            print("Aces mogelijk")
+            totale_aces = aces * 1
+            print(f"Totale score in Aces is {totale_aces}.")
+            frequentie["Ones"] = aces
+        else:
+            print("Geen aces.")
+        #                Twos              #
+        twos = dobbelsteen_waardes.count(2)
+        if twos >= 1:
+            print("Twos mogelijk")
+            totale_twos = twos * 2
+            print(f"Totale score in Twos is {totale_twos}.")
+            frequentie["Twos"] = twos
+        else:
+            print("Geen twos.")
+        #               Threes               #
+        threes = dobbelsteen_waardes.count(3)
+        if threes >= 1:
+            print("Threes mogelijk")
+            totale_threes = threes * 3
+            print(f"Totale score in Threes is {totale_threes}.")
+            frequentie["Threes"] = threes
+        else:
+            print("Geen threes.")
+        #               Fours                #
+        fours = dobbelsteen_waardes.count(4)
+        if fours >= 1:
+            print("Fours mogelijk")
+            totale_fours = fours * 4
+            print(f"Totale score in Fours is {totale_fours}.")
+            frequentie["Fours"] = fours
+        else:
+            print("Geen fours.")
+        #               Fives               #
+        fives = dobbelsteen_waardes.count(5)
+        if fives >= 1:
+            print("Fives mogelijk")
+            totale_fives = fives * 5
+            print(f"Totale score in Fives is {totale_fives}")
+            frequentie["Fives"] = fives
+        else:
+            print("Geen fives.")
+        #               Sixes               #
+        sixes = dobbelsteen_waardes.count(6)
+        if sixes >= 1:
+            print("Sixes mogelijk")
+            totale_sixes = sixes * 6
+            print(f"Totale score in Sixes is {totale_sixes}.")
+            frequentie["Sixes"] = sixes
+        else:
+            print("Geen sixes")
+
+        ###             Speciale Cats             ###
+
+        aantallen = set(frequentie.values())
+        straten_aantallen = {cijfer for cijfer, aantal in frequentie.items() if aantal > 0}
+        #            Three of a Kind             #
+        if 3 in aantallen:
+            print("Three of a Kind mogelijk")
+            ToaK_totaal = aces + twos + threes + fours + fives + sixes
+            print(f"Totale score van Three of a Kind is {ToaK_totaal}.")
+
+        #           Four of a Kind               #
+        if 4 in aantallen:
+            print("Four of a Kind mogelijk")
+            FoaK_totaal = aces + twos + threes + fours + fives + sixes
+            print(f"Totale socre van Four of a Kind is {FoaK_totaal}.")
+
+        #               Full House              #
+        if 2 in aantallen and 3 in aantallen:
+            print("Full House mogelijk")
+            print("Totale score van Full House is 25.")
+        else:
+            print("Geen Full House.")
+
+        #               Small Straight  en Large Straight          #
+                            # Large Straight #
+        grote_straat_opties = [{1, 2, 3, 4, 5}, {2, 3, 4, 5, 6}]
+
+        is_grote_straat = straten_aantallen in grote_straat_opties
+                            # Small Straight #
+        kleine_straat_opties = [{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}]
+
+        # Welke volgorde dan ook, hij kan checken
+        is_kleine_straat = any(optie.issubset(straten_aantallen) for optie in kleine_straat_opties)
+
+
+        # Straat gooien
+        if is_grote_straat:
+            print("Large Straight en Small Straight mogelijk")
+            print("Totale score van Large Straight is 40.")
+            print("Totale score van Small Straight is 30.")
+        elif is_kleine_straat:
+            print("Small Straight mogelijk")
+            print("Totale score van Small Straight is 30.")
+        else:
+            print("Geen Straights.")
+
+        #               Top Score                   #
+        if 5 in aantallen:
+            print("Top Score!")
+            print("Totale score van Top Score is 50.")
+
+        print(frequentie)
+    else:
+        print
