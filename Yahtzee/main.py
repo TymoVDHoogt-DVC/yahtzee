@@ -23,7 +23,7 @@ while antwoord == "OPNIEUW":
     antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
 
 if antwoord == "CATKIEZEN":
-    categorie_kiezen(antwoord, dobbelstenen)
+    categorie_kiezen(antwoord, dobbelstenen, scorekaart_data)
 
 # print(antwoord)
 # print(worp)
