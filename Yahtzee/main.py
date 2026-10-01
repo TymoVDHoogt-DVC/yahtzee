@@ -17,6 +17,7 @@ while scorekaart_checken(scorekaart_data):
         antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
 
     if antwoord == "CATKIEZEN":
-        categorie_kiezen(antwoord, dobbelstenen, scorekaart_data)
+        mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance = categorie_mogelijkheden(dobbelstenen)
+        categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance)
 
 totale_score()

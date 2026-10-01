@@ -109,286 +109,304 @@ def nog_een_keer(worp, dobbelstenen):
 
     elif opnieuw_catkiezen == "CATKIEZEN":
         print("Categorie kiezen")
+
     return opnieuw_catkiezen, behouden_dobbels, worp
 
-def categorie_kiezen(antwoord, dobbelstenen, scorekaart_data):
-    if antwoord == "CATKIEZEN":
-        dobbelsteen_waardes = list(dobbelstenen.values())
-        print(dobbelsteen_waardes)
-        frequentie = {
-            "Ones": 0,
-            "Twos": 0,
-            "Threes": 0,
-            "Fours": 0,
-            "Fives": 0,
-            "Sixes": 0
-        }
-
-        #               Keuzelijst          #
-        mogelijke_keuzes = []
-
-        #               Aces               #
-        aces = dobbelsteen_waardes.count(1)
-        if aces >= 1:
-            print("Aces mogelijk.")
-            totale_aces = aces * 1
-            print(f"Totale score van Aces is {totale_aces}.")
-            frequentie["Ones"] = aces
-            mogelijke_keuzes.append("ACES")
-            print()
-        else:
-            print("Geen Aces.")
-            print()
-        #                Twos              #
-        twos = dobbelsteen_waardes.count(2)
-        if twos >= 1:
-            print("Twos mogelijk.")
-            totale_twos = twos * 2
-            print(f"Totale score van Twos is {totale_twos}.")
-            frequentie["Twos"] = twos
-            mogelijke_keuzes.append("TWOS")
-            print()
-        else:
-            print("Geen Twos.")
-            print()
-        #               Threes               #
-        threes = dobbelsteen_waardes.count(3)
-        if threes >= 1:
-            print("Threes mogelijk.")
-            totale_threes = threes * 3
-            print(f"Totale score van Threes is {totale_threes}.")
-            frequentie["Threes"] = threes
-            mogelijke_keuzes.append("THREES")
-            print()
-        else:
-            print("Geen Threes.")
-            print()
-        #               Fours                #
-        fours = dobbelsteen_waardes.count(4)
-        if fours >= 1:
-            print("Fours mogelijk.")
-            totale_fours = fours * 4
-            print(f"Totale score van Fours is {totale_fours}.")
-            frequentie["Fours"] = fours
-            mogelijke_keuzes.append("FOURS")
-            print()
-        else:
-            print("Geen Fours.")
-            print()
-        #               Fives               #
-        fives = dobbelsteen_waardes.count(5)
-        if fives >= 1:
-            print("Fives mogelijk.")
-            totale_fives = fives * 5
-            print(f"Totale score van Fives is {totale_fives}")
-            frequentie["Fives"] = fives
-            mogelijke_keuzes.append("FIVES")
-            print()
-        else:
-            print("Geen Fives.")
-            print()
-        #               Sixes               #
-        sixes = dobbelsteen_waardes.count(6)
-        if sixes >= 1:
-            print("Sixes mogelijk.")
-            totale_sixes = sixes * 6
-            print(f"Totale score van Sixes is {totale_sixes}.")
-            frequentie["Sixes"] = sixes
-            mogelijke_keuzes.append("SIXES")
-            print()
-        else:
-            print("Geen Sixes.")
-            print()
-
-        ###             Speciale Cats             ###
-
-        aantallen = set(frequentie.values())
-        straten_aantallen = {cijfer for cijfer, aantal in frequentie.items() if aantal > 0}
-        #            Three of a Kind             #
-        if 3 in aantallen:
-            print("Three of a Kind mogelijk.")
-            ToaK_totaal = sum(dobbelsteen_waardes)
-            print(f"Totale score van Three of a Kind is {ToaK_totaal}.")
-            mogelijke_keuzes.append("THREE OF A KIND")
-            print()
-        else:
-            print("Geen Three of a Kind.")
-            print()
-
-        #           Four of a Kind               #
-        if 4 in aantallen:
-            print("Four of a Kind mogelijk.")
-            FoaK_totaal = sum(dobbelsteen_waardes)
-            print(f"Totale socre van Four of a Kind is {FoaK_totaal}.")
-            mogelijke_keuzes.append("FOUR OF A KIND")
-            print()
-        else:
-            print("Geen Four of a Kind.")
-            print()
-
-        #               Full House              #
-        if 2 in aantallen and 3 in aantallen:
-            print("Full House mogelijk.")
-            print("Totale score van Full House is 25.")
-            mogelijke_keuzes.append("FULL HOUSE")
-            print()
-        else:
-            print("Geen Full House.")
-            print()
-
-        #               Small Straight  en Large Straight          #
-                            # Large Straight #
-        grote_straat_opties = [{1, 2, 3, 4, 5}, {2, 3, 4, 5, 6}]
-
-        is_grote_straat = straten_aantallen in grote_straat_opties
-                            # Small Straight #
-        kleine_straat_opties = [{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}]
-
-        # Welke volgorde dan ook, hij kan checken
-        is_kleine_straat = any(optie.issubset(straten_aantallen) for optie in kleine_straat_opties)
+def categorie_mogelijkheden(dobbelstenen):
+    totale_aces = 0
+    totale_twos = 0
+    totale_threes = 0
+    totale_fours = 0
+    totale_fives = 0
+    totale_sixes = 0
+    ToaK_totaal = 0
+    FoaK_totaal = 0
+    totaal_chance = 0
 
 
-        # Straat gooien
-        if is_grote_straat:
-            print("Large Straight en Small Straight mogelijk.")
-            print("Totale score van Large Straight is 40.")
-            print("Totale score van Small Straight is 30.")
-            mogelijke_keuzes.append("LARGE STRAIGHT")
-            mogelijke_keuzes.append("SMALL STRAIGHT")
-            print()
-        elif is_kleine_straat:
-            print("Small Straight mogelijk")
-            print("Totale score van Small Straight is 30.")
-            mogelijke_keuzes.append("SMALL STRAIGHT")
-            print()
-        else:
-            print("Geen Small of Large Straight.")
-            print()
+    dobbelsteen_waardes = list(dobbelstenen.values()) 
+    print(dobbelsteen_waardes) 
+    frequentie = { 
+        "Ones": 0, 
+        "Twos": 0, 
+        "Threes": 0, 
+        "Fours": 0, 
+        "Fives": 0, 
+        "Sixes": 0 
+    } 
+ 
+    #               Keuzelijst          # 
+    mogelijke_keuzes = [] 
+ 
+    #               Aces               # 
+    aces = dobbelsteen_waardes.count(1) 
+    if aces >= 1: 
+        print("Aces mogelijk.") 
+        totale_aces = aces * 1 
+        print(f"Totale score van Aces is {totale_aces}.") 
+        frequentie["Ones"] = aces 
+        mogelijke_keuzes.append("ACES") 
+        print() 
+    else: 
+        print("Geen Aces.") 
+        print() 
 
-        #               Top Score                   #
-        if 5 in aantallen:
-            print("Top Score!")
-            print("Totale score van Top Score is 50.")
-            mogelijke_keuzes.append("TOP SCORE")
-            print()
-        else:
-            print("Geen Top Score.")
-            print()
+    #                Twos              # 
+    twos = dobbelsteen_waardes.count(2) 
+    if twos >= 1: 
+        print("Twos mogelijk.") 
+        totale_twos = twos * 2 
+        print(f"Totale score van Twos is {totale_twos}.") 
+        frequentie["Twos"] = twos 
+        mogelijke_keuzes.append("TWOS") 
+        print() 
+    else: 
+        print("Geen Twos.") 
+        print() 
 
-        #               Chance                      #
-        print("Chance is mogelijk.")
-        totaal_chance = sum(dobbelsteen_waardes)
-        print(f"Totale Score van Chance is {totaal_chance}.")
-        mogelijke_keuzes.append("CHANCE")
-        print()
+    #               Threes               # 
+    threes = dobbelsteen_waardes.count(3) 
+    if threes >= 1: 
+        print("Threes mogelijk.") 
+        totale_threes = threes * 3 
+        print(f"Totale score van Threes is {totale_threes}.") 
+        frequentie["Threes"] = threes 
+        mogelijke_keuzes.append("THREES") 
+        print() 
+    else: 
+        print("Geen Threes.") 
+        print() 
 
-        #                   Kiezen                     #
-        print("Je mag nu kiezen welke categorie je wilt invullen, je mag alleen kiezen uit de categorieën die mogelijk zijn. Voer in de naam van de categorie, let op spelling.")
-        while True:
-            cat_keuze = input("Welke categorie wil je invullen? ").upper()
-            if cat_keuze in mogelijke_keuzes:
-                cat_ingevuld = False
-                if cat_keuze == "ACES":
-                    if scorekaart_data["Aces"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_aces}.")
-                        scorekaart_data["Aces"] = totale_aces
-                        cat_ingevuld = True
-                    else:
-                        print("Aces is al ingevuld.")
-                elif cat_keuze == "TWOS":
-                    if scorekaart_data["Twos"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_twos}.")
-                        scorekaart_data["Twos"] = totale_twos
-                        cat_ingevuld = True
-                    else:
-                        print("Twos is al ingevuld.")
-                elif cat_keuze == "THREES":
-                    if scorekaart_data["Threes"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_threes}.")
-                        scorekaart_data["Threes"] = totale_threes
-                        cat_ingevuld = True
-                    else:
-                        print("Threes is al ingevuld.")
-                elif cat_keuze == "FOURS":
-                    if scorekaart_data["Fours"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fours}.")
-                        scorekaart_data["Fours"] = totale_fours
-                        cat_ingevuld = True
-                    else:
-                        print("Fours is al ingevuld.")
-                elif cat_keuze == "FIVES":
-                    if scorekaart_data["Fives"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fives}.")
-                        scorekaart_data["Fives"] = totale_fives
-                        cat_ingevuld = True
-                    else:
-                        print("Fives is al ingevuld.")
-                elif cat_keuze == "SIXES":
-                    if scorekaart_data["Sixes"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_sixes}.")
-                        scorekaart_data["Sixes"] = totale_sixes
-                        cat_ingevuld = True
-                    else:
-                        print("Sixes is al ingevuld.")
-                elif cat_keuze == "THREE OF A KIND":
-                    if scorekaart_data["Three of a Kind"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {ToaK_totaal}.")
-                        scorekaart_data["Three of a Kind"] = ToaK_totaal
-                        cat_ingevuld = True
-                    else:
-                        print("Three of a Kind is al ingevuld.")
-                elif cat_keuze == "FOUR OF A KIND":
-                    if scorekaart_data["Four of a Kind"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {FoaK_totaal}.")
-                        scorekaart_data["Four of a Kind"] = FoaK_totaal
-                        cat_ingevuld = True
-                    else:
-                        print("Four of a Kind is al ingevuld.")
-                elif cat_keuze == "FULL HOUSE":
-                    if scorekaart_data["Full House"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 25.")
-                        scorekaart_data["Full House"] = 25
-                        cat_ingevuld = True
-                    else:
-                        print("Full House is al ingevuld.")
-                elif cat_keuze == "SMALL STRAIGHT":
-                    if scorekaart_data["Small Straight"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 30.")
-                        scorekaart_data["Small Straight"] = 30
-                        cat_ingevuld = True
-                    else:
-                        print("Small Straight is al ingevuld.")
-                elif cat_keuze == "LARGE STRAIGHT":
-                    if scorekaart_data["Large Straight"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 40.")
-                        scorekaart_data["Large Straight"] = 40
-                        cat_ingevuld = True
-                    else:
-                        print("Large Straight is al ingevuld.")
-                elif cat_keuze == "TOP SCORE":
-                    if scorekaart_data["Top Score"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 50.")
-                        scorekaart_data["Top Score"] = 50
-                        cat_ingevuld = True
-                    else:
-                        print("Top Score is al ingevuld.")
-                elif cat_keuze == "CHANCE":
-                    if scorekaart_data["Chance"] is None:
-                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totaal_chance}.")
-                        scorekaart_data["Chance"] = totaal_chance
-                        cat_ingevuld = True
-                    else:
-                        print("Chance is al ingevuld.")
-                if cat_ingevuld == True:
-                    break
+    #               Fours                # 
+    fours = dobbelsteen_waardes.count(4) 
+    if fours >= 1: 
+        print("Fours mogelijk.") 
+        totale_fours = fours * 4 
+        print(f"Totale score van Fours is {totale_fours}.") 
+        frequentie["Fours"] = fours 
+        mogelijke_keuzes.append("FOURS") 
+        print() 
+    else: 
+        print("Geen Fours.") 
+        print() 
+
+    #               Fives               # 
+    fives = dobbelsteen_waardes.count(5) 
+    if fives >= 1: 
+        print("Fives mogelijk.") 
+        totale_fives = fives * 5 
+        print(f"Totale score van Fives is {totale_fives}") 
+        frequentie["Fives"] = fives 
+        mogelijke_keuzes.append("FIVES") 
+        print() 
+    else: 
+        print("Geen Fives.") 
+        print() 
+
+    #               Sixes               # 
+    sixes = dobbelsteen_waardes.count(6) 
+    if sixes >= 1: 
+        print("Sixes mogelijk.") 
+        totale_sixes = sixes * 6 
+        print(f"Totale score van Sixes is {totale_sixes}.") 
+        frequentie["Sixes"] = sixes 
+        mogelijke_keuzes.append("SIXES") 
+        print() 
+    else: 
+        print("Geen Sixes.") 
+        print() 
+ 
+    ###             Speciale Cats             ### 
+ 
+    aantallen = set(frequentie.values()) 
+    straten_aantallen = {cijfer for cijfer, aantal in frequentie.items() if aantal > 0} 
+
+    #            Three of a Kind             # 
+    if 3 in aantallen: 
+        print("Three of a Kind mogelijk.") 
+        ToaK_totaal = sum(dobbelsteen_waardes) 
+        print(f"Totale score van Three of a Kind is {ToaK_totaal}.") 
+        mogelijke_keuzes.append("THREE OF A KIND") 
+        print() 
+    else: 
+        print("Geen Three of a Kind.") 
+        print() 
+ 
+    #           Four of a Kind               # 
+    if 4 in aantallen: 
+        print("Four of a Kind mogelijk.") 
+        FoaK_totaal = sum(dobbelsteen_waardes) 
+        print(f"Totale socre van Four of a Kind is {FoaK_totaal}.") 
+        mogelijke_keuzes.append("FOUR OF A KIND") 
+        print() 
+    else: 
+        print("Geen Four of a Kind.") 
+        print() 
+ 
+    #               Full House              # 
+    if 2 in aantallen and 3 in aantallen: 
+        print("Full House mogelijk.") 
+        print("Totale score van Full House is 25.") 
+        mogelijke_keuzes.append("FULL HOUSE") 
+        print() 
+    else: 
+        print("Geen Full House.") 
+        print() 
+ 
+    #               Small Straight  en Large Straight          # 
+                        # Large Straight # 
+    grote_straat_opties = [{1, 2, 3, 4, 5}, {2, 3, 4, 5, 6}] 
+ 
+    is_grote_straat = straten_aantallen in grote_straat_opties 
+
+                        # Small Straight # 
+    kleine_straat_opties = [{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}] 
+ 
+    # Welke volgorde dan ook, hij kan checken 
+    is_kleine_straat = any(optie.issubset(straten_aantallen) for optie in kleine_straat_opties) 
+ 
+    # Straat gooien 
+    if is_grote_straat: 
+        print("Large Straight en Small Straight mogelijk.") 
+        print("Totale score van Large Straight is 40.") 
+        print("Totale score van Small Straight is 30.") 
+        mogelijke_keuzes.append("LARGE STRAIGHT") 
+        mogelijke_keuzes.append("SMALL STRAIGHT") 
+        print() 
+    elif is_kleine_straat: 
+        print("Small Straight mogelijk") 
+        print("Totale score van Small Straight is 30.") 
+        mogelijke_keuzes.append("SMALL STRAIGHT") 
+        print() 
+    else: 
+        print("Geen Small of Large Straight.") 
+        print() 
+
+    #               Top Score                   # 
+    if 5 in aantallen: 
+        print("Top Score!") 
+        print("Totale score van Top Score is 50.") 
+        mogelijke_keuzes.append("TOP SCORE") 
+        print() 
+    else: 
+        print("Geen Top Score.") 
+        print() 
+
+    #               Chance                      # 
+    print("Chance is mogelijk.") 
+    totaal_chance = sum(dobbelsteen_waardes) 
+    print(f"Totale Score van Chance is {totaal_chance}.") 
+    mogelijke_keuzes.append("CHANCE") 
+    print()
+
+    return mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance
+
+def categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance):
+    #                   Kiezen                     #
+    print("Je mag nu kiezen welke categorie je wilt invullen, je mag alleen kiezen uit de categorieën die mogelijk zijn. Voer in de naam van de categorie, let op spelling.")
+    while True:
+        cat_keuze = input("Welke categorie wil je invullen? ").upper()
+        if cat_keuze in mogelijke_keuzes:
+            cat_ingevuld = False
+            if cat_keuze == "ACES":
+                if scorekaart_data["Aces"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_aces}.")
+                    scorekaart_data["Aces"] = totale_aces
+                    cat_ingevuld = True
                 else:
-                    print("Niks ingevuld.")
-            elif cat_keuze == "SKIP":
-                print("Je skipt.")
+                    print("Aces is al ingevuld.")
+            elif cat_keuze == "TWOS":
+                if scorekaart_data["Twos"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_twos}.")
+                    scorekaart_data["Twos"] = totale_twos
+                    cat_ingevuld = True
+                else:
+                    print("Twos is al ingevuld.")
+            elif cat_keuze == "THREES":
+                if scorekaart_data["Threes"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_threes}.")
+                    scorekaart_data["Threes"] = totale_threes
+                    cat_ingevuld = True
+                else:
+                    print("Threes is al ingevuld.")
+            elif cat_keuze == "FOURS":
+                if scorekaart_data["Fours"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fours}.")
+                    scorekaart_data["Fours"] = totale_fours
+                    cat_ingevuld = True
+                else:
+                    print("Fours is al ingevuld.")
+            elif cat_keuze == "FIVES":
+                if scorekaart_data["Fives"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fives}.")
+                    scorekaart_data["Fives"] = totale_fives
+                    cat_ingevuld = True
+                else:
+                    print("Fives is al ingevuld.")
+            elif cat_keuze == "SIXES":
+                if scorekaart_data["Sixes"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_sixes}.")
+                    scorekaart_data["Sixes"] = totale_sixes
+                    cat_ingevuld = True
+                else:
+                    print("Sixes is al ingevuld.")
+            elif cat_keuze == "THREE OF A KIND":
+                if scorekaart_data["Three of a Kind"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {ToaK_totaal}.")
+                    scorekaart_data["Three of a Kind"] = ToaK_totaal
+                    cat_ingevuld = True
+                else:
+                    print("Three of a Kind is al ingevuld.")
+            elif cat_keuze == "FOUR OF A KIND":
+                if scorekaart_data["Four of a Kind"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {FoaK_totaal}.")
+                    scorekaart_data["Four of a Kind"] = FoaK_totaal
+                    cat_ingevuld = True
+                else:
+                    print("Four of a Kind is al ingevuld.")
+            elif cat_keuze == "FULL HOUSE":
+                if scorekaart_data["Full House"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 25.")
+                    scorekaart_data["Full House"] = 25
+                    cat_ingevuld = True
+                else:
+                    print("Full House is al ingevuld.")
+            elif cat_keuze == "SMALL STRAIGHT":
+                if scorekaart_data["Small Straight"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 30.")
+                    scorekaart_data["Small Straight"] = 30
+                    cat_ingevuld = True
+                else:
+                    print("Small Straight is al ingevuld.")
+            elif cat_keuze == "LARGE STRAIGHT":
+                if scorekaart_data["Large Straight"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 40.")
+                    scorekaart_data["Large Straight"] = 40
+                    cat_ingevuld = True
+                else:
+                    print("Large Straight is al ingevuld.")
+            elif cat_keuze == "TOP SCORE":
+                if scorekaart_data["Top Score"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 50.")
+                    scorekaart_data["Top Score"] = 50
+                    cat_ingevuld = True
+                else:
+                    print("Top Score is al ingevuld.")
+            elif cat_keuze == "CHANCE":
+                if scorekaart_data["Chance"] is None:
+                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totaal_chance}.")
+                    scorekaart_data["Chance"] = totaal_chance
+                    cat_ingevuld = True
+                else:
+                    print("Chance is al ingevuld.")
+            if cat_ingevuld == True:
+                break
             else:
-                print("Dat is geen mogelijke categorie. Probeer opnieuw.")
-    else:
-        print
+                print("Niks ingevuld.")
+        elif cat_keuze == "SKIP":
+            print("Je skipt.")
+        else:
+            print("Dat is geen mogelijke categorie. Probeer opnieuw.")
 
 def totale_score(scorekaart):
     totaal_boven = scorekaart["Aces"] + scorekaart["Twos"] + scorekaart["Threes"] + scorekaart["Fours"] + scorekaart["Fives"] + scorekaart["Sixes"]
