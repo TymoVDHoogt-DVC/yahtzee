@@ -98,12 +98,15 @@ def nog_een_keer(worp, dobbelstenen):
                 aantal_keuzes += 1
             else:
                 print("Sorry, dat is geen geldig nummer.")
+
         for dobbelsteen in dobbelstenen:
-            if dobbelsteen in behouden_dobbels:
-                print
-            else:
-                print()
+            if dobbelsteen not in behouden_dobbels:
                 dobbelstenen[dobbelsteen] = random.randint(1, 6)
+
+        for dobbelsteen in dobbelstenen:
+            gooi = dobbelstenen[dobbelsteen]
+            print(f"{dobbelsteen} heeft een {gooi} gegooid.")
+
     elif opnieuw_catkiezen == "CATKIEZEN":
         print("Categorie kiezen")
     return opnieuw_catkiezen, behouden_dobbels, worp
@@ -284,46 +287,102 @@ def categorie_kiezen(antwoord, dobbelstenen, scorekaart_data):
         while True:
             cat_keuze = input("Welke categorie wil je invullen? ").upper()
             if cat_keuze in mogelijke_keuzes:
+                cat_ingevuld = False
                 if cat_keuze == "ACES":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_aces}.")
-                    scorekaart_data["Aces"] = totale_aces
+                    if scorekaart_data["Aces"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_aces}.")
+                        scorekaart_data["Aces"] = totale_aces
+                        cat_ingevuld = True
+                    else:
+                        print("Aces is al ingevuld.")
                 elif cat_keuze == "TWOS":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_twos}.")
-                    scorekaart_data["Twos"] = totale_twos
+                    if scorekaart_data["Twos"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_twos}.")
+                        scorekaart_data["Twos"] = totale_twos
+                        cat_ingevuld = True
+                    else:
+                        print("Twos is al ingevuld.")
                 elif cat_keuze == "THREES":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_threes}.")
-                    scorekaart_data["Threes"] = totale_threes
+                    if scorekaart_data["Threes"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_threes}.")
+                        scorekaart_data["Threes"] = totale_threes
+                        cat_ingevuld = True
+                    else:
+                        print("Threes is al ingevuld.")
                 elif cat_keuze == "FOURS":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fours}.")
-                    scorekaart_data["Fours"] = totale_fours
+                    if scorekaart_data["Fours"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fours}.")
+                        scorekaart_data["Fours"] = totale_fours
+                        cat_ingevuld = True
+                    else:
+                        print("Fours is al ingevuld.")
                 elif cat_keuze == "FIVES":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fives}.")
-                    scorekaart_data["Fives"] = totale_fives
+                    if scorekaart_data["Fives"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_fives}.")
+                        scorekaart_data["Fives"] = totale_fives
+                        cat_ingevuld = True
+                    else:
+                        print("Fives is al ingevuld.")
                 elif cat_keuze == "SIXES":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_sixes}.")
-                    scorekaart_data["Sixes"] = totale_sixes
+                    if scorekaart_data["Sixes"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totale_sixes}.")
+                        scorekaart_data["Sixes"] = totale_sixes
+                        cat_ingevuld = True
+                    else:
+                        print("Sixes is al ingevuld.")
                 elif cat_keuze == "THREE OF A KIND":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {ToaK_totaal}.")
-                    scorekaart_data["Three of a Kind"] = ToaK_totaal
+                    if scorekaart_data["Three of a Kind"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {ToaK_totaal}.")
+                        scorekaart_data["Three of a Kind"] = ToaK_totaal
+                        cat_ingevuld = True
+                    else:
+                        print("Three of a Kind is al ingevuld.")
                 elif cat_keuze == "FOUR OF A KIND":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {FoaK_totaal}.")
-                    scorekaart_data["Four of a Kind"] = FoaK_totaal
+                    if scorekaart_data["Four of a Kind"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {FoaK_totaal}.")
+                        scorekaart_data["Four of a Kind"] = FoaK_totaal
+                        cat_ingevuld = True
+                    else:
+                        print("Four of a Kind is al ingevuld.")
                 elif cat_keuze == "FULL HOUSE":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 25.")
-                    scorekaart_data["Full House"] = 25
+                    if scorekaart_data["Full House"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 25.")
+                        scorekaart_data["Full House"] = 25
+                        cat_ingevuld = True
+                    else:
+                        print("Full House is al ingevuld.")
                 elif cat_keuze == "SMALL STRAIGHT":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 30.")
-                    scorekaart_data["Small Straight"] = 30
+                    if scorekaart_data["Small Straight"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 30.")
+                        scorekaart_data["Small Straight"] = 30
+                        cat_ingevuld = True
+                    else:
+                        print("Small Straight is al ingevuld.")
                 elif cat_keuze == "LARGE STRAIGHT":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 40.")
-                    scorekaart_data["Large Straight"] = 40
+                    if scorekaart_data["Large Straight"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 40.")
+                        scorekaart_data["Large Straight"] = 40
+                        cat_ingevuld = True
+                    else:
+                        print("Large Straight is al ingevuld.")
                 elif cat_keuze == "TOP SCORE":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 50.")
-                    scorekaart_data["Top Score"] = 50
+                    if scorekaart_data["Top Score"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is 50.")
+                        scorekaart_data["Top Score"] = 50
+                        cat_ingevuld = True
+                    else:
+                        print("Top Score is al ingevuld.")
                 elif cat_keuze == "CHANCE":
-                    print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totaal_chance}.")
-                    scorekaart_data["Chance"] = totaal_chance
-                break
+                    if scorekaart_data["Chance"] is None:
+                        print(f"Je hebt gekozen voor {cat_keuze}. De totale score hiervan is {totaal_chance}.")
+                        scorekaart_data["Chance"] = totaal_chance
+                        cat_ingevuld = True
+                    else:
+                        print("Chance is al ingevuld.")
+                if cat_ingevuld == True:
+                    break
+                else:
+                    print("Niks ingevuld.")
             else:
                 print("Dat is geen mogelijke categorie. Probeer opnieuw.")
     else:

@@ -6,24 +6,20 @@ scorekaart_data = scorekaart()
 
 scorekaart_check = scorekaart_checken(scorekaart_data)
 
-if scorekaart_check == True:
-    print("Beurt voorzetten")
-else:
-    print("Bereken totaalscore")
+while scorekaart_checken(scorekaart_data):
+    worp = 1
 
-worp = 1
+    dobbelstenen = dobbelstenen_gooien()
+    # print(dobbelstenen)
 
-dobbelstenen = dobbelstenen_gooien()
-print(dobbelstenen)
-
-antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
-
-while antwoord == "OPNIEUW":
-    print(dobbelstenen)
     antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
 
-if antwoord == "CATKIEZEN":
-    categorie_kiezen(antwoord, dobbelstenen, scorekaart_data)
+    while antwoord == "OPNIEUW":
+        # print(dobbelstenen)
+        antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
+
+    if antwoord == "CATKIEZEN":
+        categorie_kiezen(antwoord, dobbelstenen, scorekaart_data)
 
 # print(antwoord)
 # print(worp)
