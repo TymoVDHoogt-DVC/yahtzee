@@ -383,7 +383,26 @@ def categorie_kiezen(antwoord, dobbelstenen, scorekaart_data):
                     break
                 else:
                     print("Niks ingevuld.")
+            elif cat_keuze == "SKIP":
+                print("Je skipt.")
             else:
                 print("Dat is geen mogelijke categorie. Probeer opnieuw.")
     else:
         print
+
+def totale_score(scorekaart):
+    totaal_boven = scorekaart["Aces"] + scorekaart["Twos"] + scorekaart["Threes"] + scorekaart["Fours"] + scorekaart["Fives"] + scorekaart["Sixes"]
+
+    if totaal_boven >= 63:
+        bonus_totaal_boven = totaal_boven + 35
+        print(f"De totale score van de bovenste vakken is {bonus_totaal_boven}.")
+    else:
+        print(f"De totale score van de bovenste vakken is {totaal_boven}.")
+
+    totaal_onder = scorekaart["Three of a Kind"] + scorekaart["Four of a Kind"] + scorekaart["Full House"] + scorekaart["Small Straight"] + scorekaart["Large Straight"] + scorekaart["Top Score"] + scorekaart["Chance"]
+
+    print(f"De totale score van de onderste zakken is {totaal_onder}.")
+
+    totale_score = totaal_boven + totaal_onder
+
+    print(f"Jouw totale score is dus {totale_score}")
