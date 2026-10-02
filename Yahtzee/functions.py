@@ -3,23 +3,87 @@ import time, random
 def welkombijyathzee():
     print("Welkom bij Yathzee!")
 
-def scorekaart():
-    scorekaart = {
-    "Aces": None,
-    "Twos": None,
-    "Threes": None,
-    "Fours": None,
-    "Fives": None,
-    "Sixes": None,
-    "Three of a Kind": None,
-    "Four of a Kind": None,
-    "Full House": None,
-    "Small Straight": None,
-    "Large Straight": None,
-    "Top Score": None,
-    "Chance": None
-    }
-    return scorekaart
+def spelers_kiezen():
+    print("Je mag alleen of samen spelen.")
+    while True:
+        try:
+            aantal_spelers = int(input("Met hoeveel spelers wil je dit spelen? (1/2) "))
+            if aantal_spelers == 1:
+                break
+            elif aantal_spelers == 2:
+                break
+            else:
+                print("Dit is geen optie.")
+        except ValueError:
+            print("Dit is geen optie.")
+    return aantal_spelers
+
+# def aantal_spellen_kiezen():
+#     print("Je mag 1, of 5 wedstrijden spelen.")
+#     while True:
+#         try:
+#             aantal_spellen = int(input("Hoeveel wedstrijden wil je spelen? (1/5) "))
+#             if aantal_spellen == 1:
+#                 break
+#             elif aantal_spellen == 5:
+#                 break
+#             else:
+#                 print("Dit is geen optie.")
+#         except ValueError:
+#             print("Dit is geen optie.")
+#     return aantal_spellen
+
+def scorekaart(speleraantal):
+    if speleraantal == 1:
+        scorekaart = {
+        "Aces": None,
+        "Twos": None,
+        "Threes": None,
+        "Fours": None,
+        "Fives": None,
+        "Sixes": None,
+        "Three of a Kind": None,
+        "Four of a Kind": None,
+        "Full House": None,
+        "Small Straight": None,
+        "Large Straight": None,
+        "Top Score": None,
+        "Chance": None
+        }
+        return scorekaart
+    elif speleraantal == 2:
+        scorekaart = {
+                "Aces": None,
+                "Twos": None,
+                "Threes": None,
+                "Fours": None,
+                "Fives": None,
+                "Sixes": None,
+                "Three of a Kind": None,
+                "Four of a Kind": None,
+                "Full House": None,
+                "Small Straight": None,
+                "Large Straight": None,
+                "Top Score": None,
+                "Chance": None
+                }
+        
+        scorekaart2 = {
+            "Aces": None,
+            "Twos": None,
+            "Threes": None,
+            "Fours": None,
+            "Fives": None,
+            "Sixes": None,
+            "Three of a Kind": None,
+            "Four of a Kind": None,
+            "Full House": None,
+            "Small Straight": None,
+            "Large Straight": None,
+            "Top Score": None,
+            "Chance": None
+            }
+        return scorekaart, scorekaart2
 
 def scorekaart_checken(scorekaart):
     res = any(waarde is None for waarde in scorekaart.values())
@@ -424,3 +488,5 @@ def totale_score(scorekaart):
     totale_score = totaal_boven + totaal_onder
 
     print(f"Jouw totale score is dus {totale_score}")
+
+    return totale_score
