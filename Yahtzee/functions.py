@@ -18,20 +18,20 @@ def spelers_kiezen():
             print("Dit is geen optie.")
     return aantal_spelers
 
-# def aantal_spellen_kiezen():
-#     print("Je mag 1, of 5 wedstrijden spelen.")
-#     while True:
-#         try:
-#             aantal_spellen = int(input("Hoeveel wedstrijden wil je spelen? (1/5) "))
-#             if aantal_spellen == 1:
-#                 break
-#             elif aantal_spellen == 5:
-#                 break
-#             else:
-#                 print("Dit is geen optie.")
-#         except ValueError:
-#             print("Dit is geen optie.")
-#     return aantal_spellen
+def aantal_spellen_kiezen():
+    print("Je mag 1, of 5 wedstrijden spelen.")
+    while True:
+        try:
+            aantal_spellen = int(input("Hoeveel wedstrijden wil je spelen? (1/5) "))
+            if aantal_spellen == 1:
+                break
+            elif aantal_spellen == 5:
+                break
+            else:
+                print("Dit is geen optie.")
+        except ValueError:
+            print("Dit is geen optie.")
+    return aantal_spellen
 
 def scorekaart(speleraantal):
     if speleraantal == 1:
@@ -88,7 +88,7 @@ def scorekaart(speleraantal):
 def scorekaart_checken(scorekaart):
     res = any(waarde is None for waarde in scorekaart.values())
     if res == True:
-        print("placeholder")
+        print()
     else:
         print("Totaal score berekenen")
     return res
@@ -198,10 +198,10 @@ def categorie_mogelijkheden(dobbelstenen):
         "Fives": 0, 
         "Sixes": 0 
     } 
- 
+
     #               Keuzelijst          # 
     mogelijke_keuzes = [] 
- 
+
     #               Aces               # 
     aces = dobbelsteen_waardes.count(1) 
     if aces >= 1: 
@@ -279,11 +279,11 @@ def categorie_mogelijkheden(dobbelstenen):
     else: 
         print("Geen Sixes.") 
         print() 
- 
+
     ###             Speciale Cats             ### 
- 
+
     aantallen = set(frequentie.values()) 
-    straten_aantallen = {cijfer for cijfer, aantal in frequentie.items() if aantal > 0} 
+    straten_aantallen = set(dobbelsteen_waardes)
 
     #            Three of a Kind             # 
     if 3 in aantallen: 
@@ -295,7 +295,7 @@ def categorie_mogelijkheden(dobbelstenen):
     else: 
         print("Geen Three of a Kind.") 
         print() 
- 
+
     #           Four of a Kind               # 
     if 4 in aantallen: 
         print("Four of a Kind mogelijk.") 
@@ -306,7 +306,7 @@ def categorie_mogelijkheden(dobbelstenen):
     else: 
         print("Geen Four of a Kind.") 
         print() 
- 
+
     #               Full House              # 
     if 2 in aantallen and 3 in aantallen: 
         print("Full House mogelijk.") 
@@ -316,19 +316,19 @@ def categorie_mogelijkheden(dobbelstenen):
     else: 
         print("Geen Full House.") 
         print() 
- 
+
     #               Small Straight  en Large Straight          # 
                         # Large Straight # 
     grote_straat_opties = [{1, 2, 3, 4, 5}, {2, 3, 4, 5, 6}] 
- 
+
     is_grote_straat = straten_aantallen in grote_straat_opties 
 
                         # Small Straight # 
     kleine_straat_opties = [{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}] 
- 
+
     # Welke volgorde dan ook, hij kan checken 
     is_kleine_straat = any(optie.issubset(straten_aantallen) for optie in kleine_straat_opties) 
- 
+
     # Straat gooien 
     if is_grote_straat: 
         print("Large Straight en Small Straight mogelijk.") 
@@ -468,7 +468,17 @@ def categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_ace
             else:
                 print("Niks ingevuld.")
         elif cat_keuze == "SKIP":
-            print("Je skipt.")
+            print("Je skipt. Kies een categorie om 0 punten in te vullen.")
+
+            while True:
+                nul_categorie = input("Welke categorie wil je schrappen? ")
+
+                if nul_categorie in scorekaart and scorekaart[nul_categorie] is None:
+                    scorekaart[nul_categorie] = 0
+                    print(f"{nul_categorie} is ingevuld met 0 punten.")
+                    break
+                else:
+                    print("Dat is geen mogelijke categorie. Hij is al ingevuld, of bestaat niet. Probeer opnieuw.")
         else:
             print("Dat is geen mogelijke categorie. Probeer opnieuw.")
 
@@ -476,14 +486,14 @@ def totale_score(scorekaart):
     totaal_boven = scorekaart["Aces"] + scorekaart["Twos"] + scorekaart["Threes"] + scorekaart["Fours"] + scorekaart["Fives"] + scorekaart["Sixes"]
 
     if totaal_boven >= 63:
-        bonus_totaal_boven = totaal_boven + 35
-        print(f"De totale score van de bovenste vakken is {bonus_totaal_boven}.")
+        totaal_boven = totaal_boven + 35
+        print(f"De totale score van de bovenste vakken is {totaal_boven}.")
     else:
         print(f"De totale score van de bovenste vakken is {totaal_boven}.")
 
     totaal_onder = scorekaart["Three of a Kind"] + scorekaart["Four of a Kind"] + scorekaart["Full House"] + scorekaart["Small Straight"] + scorekaart["Large Straight"] + scorekaart["Top Score"] + scorekaart["Chance"]
 
-    print(f"De totale score van de onderste zakken is {totaal_onder}.")
+    print(f"De totale score van de onderste vakken is {totaal_onder}.")
 
     totale_score = totaal_boven + totaal_onder
 
