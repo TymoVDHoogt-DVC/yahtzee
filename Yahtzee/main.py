@@ -2,54 +2,54 @@ from functions import *
 
 welkombijyathzee()
 
-speleraantal = spelers_kiezen()
-spellenaantal = aantal_spellen_kiezen()
+speleraantal = spelers_kiezen()         # Spelers kiezen
+spellenaantal = aantal_spellen_kiezen() # Aantal spellen kiezen
 
-scores_speler1 = []
-scores_speler2 = []
+scores_speler1 = [] # Lijst van de scores van speler 1
+scores_speler2 = [] # Lijst van de scores van speler 2
 
-for wedstrijd in range(spellenaantal):
+for wedstrijd in range(spellenaantal):  # Speel aantal websites aan de hand an de keuze
 
-    print(f"\n--- Wedstrijd {wedstrijd + 1} van {spellenaantal} ---")
+    print(f"\n--- Wedstrijd {wedstrijd + 1} van {spellenaantal} ---")       # Welke wedstrijd?
 
     if speleraantal == 1:
-        scorekaart_data = scorekaart(speleraantal)
+        scorekaart_data = scorekaart(speleraantal)  # Scorekaart speler 1
 
     elif speleraantal == 2:
-        scorekaart_data, scorekaart_data2 = scorekaart(speleraantal)
+        scorekaart_data, scorekaart_data2 = scorekaart(speleraantal)    # Socrekaart speler 2
 
-    speler_aan_de_beurt = 1
+    speler_aan_de_beurt = 1     # Speler 1 begint
 
     while scorekaart_checken(scorekaart_data) or (speleraantal == 2 and scorekaart_checken(scorekaart_data2)):
         if speleraantal == 2:
-            print(f"Speler {speler_aan_de_beurt} is aan de beurt.")
+            print(f"Speler {speler_aan_de_beurt} is aan de beurt.")     # Spler 2 aan de beurt
 
         if speleraantal == 2:
             if speler_aan_de_beurt == 1 and not scorekaart_checken(scorekaart_data):
                 speler_aan_de_beurt = 2
-                continue
+                continue        # Kaart niet vol
 
             elif speler_aan_de_beurt == 2 and not scorekaart_checken(scorekaart_data2):
                 speler_aan_de_beurt = 1
                 continue
 
-        worp = 1
+        worp = 1    # Begint al met 1 worp klaar 
 
-        dobbelstenen = dobbelstenen_gooien()
+        dobbelstenen = dobbelstenen_gooien()        # Dobbelstenen gooien
 
-        antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
+        antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen) # Nog een keer
 
         while antwoord == "OPNIEUW":
-            antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen)
+            antwoord, behouden_dobbels, worp = nog_een_keer(worp, dobbelstenen) # Als opnieuw, hergooien behalve behouden dobbels
 
         if antwoord == "CATKIEZEN":
-            mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance = categorie_mogelijkheden(dobbelstenen)
+            mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance = categorie_mogelijkheden(dobbelstenen)    # Categorie kiezen
 
             if speler_aan_de_beurt == 1:
-                categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance)
+                categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance)   # Speler 1 scorekaart
 
             elif speler_aan_de_beurt == 2:
-                categorie_kiezen(dobbelstenen, scorekaart_data2, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance)
+                categorie_kiezen(dobbelstenen, scorekaart_data2, mogelijke_keuzes, totale_aces, totale_twos, totale_threes, totale_fours, totale_fives, totale_sixes, ToaK_totaal, FoaK_totaal, totaal_chance)    # Speler 2 scorekaart
 
         if speleraantal == 2:
             if speler_aan_de_beurt == 1:
