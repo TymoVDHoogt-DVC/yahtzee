@@ -471,13 +471,14 @@ def categorie_kiezen(dobbelstenen, scorekaart_data, mogelijke_keuzes, totale_ace
         elif cat_keuze == "SKIP":
             print("Je skipt. Kies een categorie om 0 punten in te vullen.")
             # Schrap een categorie
+            print(scorekaart_data)
             while True:
                 nul_categorie = input("Welke categorie wil je schrappen? ")
-
-                if nul_categorie in scorekaart and scorekaart[nul_categorie] is None:   # Als de categorie die je wilt schrappen None is, dan kan die worden gekozen, anders niet
-                    scorekaart[nul_categorie] = 0
+                print(repr(nul_categorie))
+                if nul_categorie in scorekaart_data and scorekaart_data[nul_categorie] is None:   # Als de categorie die je wilt schrappen None is, dan kan die worden gekozen, anders niet
+                    scorekaart_data[nul_categorie] = 0
                     print(f"{nul_categorie} is ingevuld met 0 punten.")
-                    break
+                    return
                 else:
                     print("Dat is geen mogelijke categorie. Hij is al ingevuld, of bestaat niet. Probeer opnieuw.")
         else:
